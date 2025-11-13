@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<!-- saved from url=(0057)https://jadira818283-crypto.github.io/kazaksa.turlendyru/ -->
-<html lang="kk"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
   <title>Ақпарат өлшемдерін түрлендіруге арналған құрал</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 30px 20px;
-      max-width: 1100px;
+      max-width: 900px;
       margin: auto;
       background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
       color: #222;
@@ -17,15 +17,27 @@
 
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     header h1 {
       color: #003366;
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       font-weight: 700;
       line-height: 1.2;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .definition {
+      background: rgba(255,255,255,0.95);
+      border-left: 5px solid #007BFF;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      line-height: 1.6;
+      font-size: 1rem;
+      color: #003366;
     }
 
     h2 {
@@ -38,11 +50,8 @@
 
     .container {
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding-bottom: 10px;
+      flex-direction: column;
+      gap: 25px;
     }
 
     .section {
@@ -50,8 +59,6 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       padding: 25px 20px;
       border-radius: 12px;
-      flex: 1 1 0;
-      min-width: 300px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -107,64 +114,58 @@
       width: 100%;
     }
 
-    @media (max-width: 980px) {
-      .container {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .section {
-        min-width: 320px;
-        margin-bottom: 30px;
-      }
+    ul.rules {
+      text-align: left;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #003366;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>«Ақпарат өлшемдерін түрлендіруге және салыстыруға арналған қазақша онлайн құрал»</h1>
+    <h1>«Ақпарат өлшемдерін түрлендіруге арналған қазақша онлайн құрал»</h1>
   </header>
+
+  <!-- 🔹 АНЫҚТАМА -->
+  <div class="definition">
+    <strong>Анықтама:</strong><br>
+    Ақпарат өлшемдері — мәліметтің көлемін өлшеуге арналған бірліктер жүйесі.
+    Ең кіші өлшем бірлік — <b>бит</b>. Ол 0 немесе 1 мәнін қабылдайды.  
+    <b>1 байт = 8 бит</b> болады.  
+    Ақпарат көлемі өскен сайын байттар ірі бірліктерге біріктіріледі: килобайт (КБ), мегабайт (МБ), гигабайт (ГБ) және т.б.  
+    Бұл құрал ақпарат көлемдерін түрлендіруді жеңілдетеді.
+  </div>
 
   <div class="container">
     <!-- 1. Ақпарат өлшемін түрлендіру -->
     <div class="section">
       <h2>1. Ақпарат өлшемін түрлендіру</h2>
-      <input type="number" id="dataInput" placeholder="Мәнді енгізіңіз (мысалы, 1)">
+      <input type="number" id="dataInput" placeholder="Мәнді енгізіңіз (мысалы, 1)" />
       <select id="dataUnit">
+        <option value="bit">бит</option>
+        <option value="B">байт</option>
         <option value="KB">КБ</option>
-        <option value="MB" selected="">МБ</option>
+        <option value="MB" selected>МБ</option>
         <option value="GB">ГБ</option>
       </select>
       <button onclick="convertData()">Есептеу</button>
       <p id="dataResult"></p>
     </div>
 
-    <!-- 2. Пайыздық есептеу -->
+    <!-- 2. Ақпарат өлшемдері арасындағы ережелер -->
     <div class="section">
-      <h2>2. Пайыздық есептеу</h2>
-      <input type="number" id="baseNumber" placeholder="Негізгі сан">
-      <input type="number" id="percentage" placeholder="Пайыз (%)">
-      <button onclick="calculatePercentage()">Есептеу</button>
-      <p id="percentageResult"></p>
-    </div>
-
-    <!-- 3. Ақпарат көлемін салыстыру -->
-    <div class="section">
-      <h2>3. Ақпарат көлемін салыстыру (неше есе үлкен?)</h2>
-      <input type="number" id="size1" placeholder="Бірінші көлем (сан)">
-      <select id="unit1">
-        <option value="KB">КБ</option>
-        <option value="MB" selected="">МБ</option>
-        <option value="GB">ГБ</option>
-      </select>
-      <input type="number" id="size2" placeholder="Екінші көлем (сан)">
-      <select id="unit2">
-        <option value="KB">КБ</option>
-        <option value="MB" selected="">МБ</option>
-        <option value="GB">ГБ</option>
-      </select>
-      <button onclick="compareSizes()">Салыстыру</button>
-      <p id="compareResult"></p>
+      <h2>2. Ақпарат өлшемдері арасындағы ауысу ережелері</h2>
+      <ul class="rules">
+        <li>1 байт = 8 бит</li>
+        <li>1 КБ (килобайт) = 1024 байт</li>
+        <li>1 МБ (мегабайт) = 1024 КБ</li>
+        <li>1 ГБ (гигабайт) = 1024 МБ</li>
+        <li>1 ГБ = 1 073 741 824 байт</li>
+        <li>1 байт = 0.125 бит</li>
+      </ul>
     </div>
   </div>
 
@@ -177,57 +178,26 @@
         document.getElementById("dataResult").innerText = "Мәнді дұрыс енгізіңіз.";
         return;
       }
-      let result = "";
-      if (unit === "KB") {
-        result = `${value} КБ = ${(value / 1024).toFixed(2)} МБ = ${(value / 1024 / 1024).toFixed(4)} ГБ`;
-      } else if (unit === "MB") {
-        result = `${value} МБ = ${(value * 1024).toFixed(2)} КБ = ${(value / 1024).toFixed(4)} ГБ`;
-      } else if (unit === "GB") {
-        result = `${value} ГБ = ${(value * 1024).toFixed(2)} МБ = ${(value * 1024 * 1024).toFixed(2)} КБ`;
+
+      let bytes;
+      switch (unit) {
+        case "bit": bytes = value / 8; break;
+        case "B": bytes = value; break;
+        case "KB": bytes = value * 1024; break;
+        case "MB": bytes = value * 1024 * 1024; break;
+        case "GB": bytes = value * 1024 * 1024 * 1024; break;
       }
+
+      // Битті көрсетпейміз — тек байттан бастап
+      const result =
+        `${value} ${unit} = ${(bytes).toFixed(2)} байт\n` +
+        `${(bytes / 1024).toFixed(4)} КБ\n` +
+        `${(bytes / 1024 / 1024).toFixed(6)} МБ\n` +
+        `${(bytes / 1024 / 1024 / 1024).toFixed(8)} ГБ`;
+
       document.getElementById("dataResult").innerText = result;
-    }
-
-    // 2. Пайыздық есептеу
-    function calculatePercentage() {
-      const base = parseFloat(document.getElementById("baseNumber").value);
-      const percent = parseFloat(document.getElementById("percentage").value);
-      if (isNaN(base) || isNaN(percent)) {
-        document.getElementById("percentageResult").innerText = "Сандарды дұрыс енгізіңіз.";
-        return;
-      }
-      const result = (base * percent) / 100;
-      document.getElementById("percentageResult").innerText = `${percent}% = ${result.toFixed(2)}`;
-    }
-
-    // 3. Ақпарат көлемін салыстыру
-    function compareSizes() {
-      const size1 = parseFloat(document.getElementById("size1").value);
-      const unit1 = document.getElementById("unit1").value;
-      const size2 = parseFloat(document.getElementById("size2").value);
-      const unit2 = document.getElementById("unit2").value;
-
-      if (isNaN(size1) || isNaN(size2) || size2 === 0) {
-        document.getElementById("compareResult").innerText = "Мәліметтерді дұрыс енгізіңіз.";
-        return;
-      }
-
-      const convertToKB = (size, unit) => {
-        if (unit === "KB") return size;
-        if (unit === "MB") return size * 1024;
-        if (unit === "GB") return size * 1024 * 1024;
-      };
-
-      const size1KB = convertToKB(size1, unit1);
-      const size2KB = convertToKB(size2, unit2);
-
-      const ratio = size1KB / size2KB;
-
-      document.getElementById("compareResult").innerText =
-        `${size1} ${unit1} → ${size2} ${unit2}-тан ${ratio.toFixed(2)} есе үлкен`;
     }
   </script>
 
-
-
-</body></html>
+</body>
+</html>
