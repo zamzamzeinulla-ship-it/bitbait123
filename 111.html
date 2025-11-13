@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://jadira818283-crypto.github.io/kazaksa.turlendyru/ -->
+<html lang="kk"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Ақпарат өлшемдерін түрлендіруге арналған құрал</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 30px 20px;
+      max-width: 1100px;
+      margin: auto;
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      color: #222;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      color: #003366;
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      color: #003366;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 25px 20px;
+      border-radius: 12px;
+      flex: 1 1 0;
+      min-width: 300px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input, select {
+      margin: 10px 0 20px 0;
+      padding: 10px 12px;
+      width: 100%;
+      max-width: 260px;
+      border-radius: 8px;
+      border: 1.8px solid #007BFF;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #0056b3;
+      box-shadow: 0 0 8px #0056b3aa;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 0;
+      width: 100%;
+      max-width: 260px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      margin-top: -10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 15px;
+      color: #004080;
+      min-height: 1.6em;
+      white-space: pre-line;
+      text-align: center;
+      width: 100%;
+    }
+
+    @media (max-width: 980px) {
+      .container {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .section {
+        min-width: 320px;
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>«Ақпарат өлшемдерін түрлендіруге және салыстыруға арналған қазақша онлайн құрал»</h1>
+  </header>
+
+  <div class="container">
+    <!-- 1. Ақпарат өлшемін түрлендіру -->
+    <div class="section">
+      <h2>1. Ақпарат өлшемін түрлендіру</h2>
+      <input type="number" id="dataInput" placeholder="Мәнді енгізіңіз (мысалы, 1)">
+      <select id="dataUnit">
+        <option value="KB">КБ</option>
+        <option value="MB" selected="">МБ</option>
+        <option value="GB">ГБ</option>
+      </select>
+      <button onclick="convertData()">Есептеу</button>
+      <p id="dataResult"></p>
+    </div>
+
+    <!-- 2. Пайыздық есептеу -->
+    <div class="section">
+      <h2>2. Пайыздық есептеу</h2>
+      <input type="number" id="baseNumber" placeholder="Негізгі сан">
+      <input type="number" id="percentage" placeholder="Пайыз (%)">
+      <button onclick="calculatePercentage()">Есептеу</button>
+      <p id="percentageResult"></p>
+    </div>
+
+    <!-- 3. Ақпарат көлемін салыстыру -->
+    <div class="section">
+      <h2>3. Ақпарат көлемін салыстыру (неше есе үлкен?)</h2>
+      <input type="number" id="size1" placeholder="Бірінші көлем (сан)">
+      <select id="unit1">
+        <option value="KB">КБ</option>
+        <option value="MB" selected="">МБ</option>
+        <option value="GB">ГБ</option>
+      </select>
+      <input type="number" id="size2" placeholder="Екінші көлем (сан)">
+      <select id="unit2">
+        <option value="KB">КБ</option>
+        <option value="MB" selected="">МБ</option>
+        <option value="GB">ГБ</option>
+      </select>
+      <button onclick="compareSizes()">Салыстыру</button>
+      <p id="compareResult"></p>
+    </div>
+  </div>
+
+  <script>
+    // 1. Ақпарат өлшемін түрлендіру
+    function convertData() {
+      const value = parseFloat(document.getElementById("dataInput").value);
+      const unit = document.getElementById("dataUnit").value;
+      if (isNaN(value) || value < 0) {
+        document.getElementById("dataResult").innerText = "Мәнді дұрыс енгізіңіз.";
+        return;
+      }
+      let result = "";
+      if (unit === "KB") {
+        result = `${value} КБ = ${(value / 1024).toFixed(2)} МБ = ${(value / 1024 / 1024).toFixed(4)} ГБ`;
+      } else if (unit === "MB") {
+        result = `${value} МБ = ${(value * 1024).toFixed(2)} КБ = ${(value / 1024).toFixed(4)} ГБ`;
+      } else if (unit === "GB") {
+        result = `${value} ГБ = ${(value * 1024).toFixed(2)} МБ = ${(value * 1024 * 1024).toFixed(2)} КБ`;
+      }
+      document.getElementById("dataResult").innerText = result;
+    }
+
+    // 2. Пайыздық есептеу
+    function calculatePercentage() {
+      const base = parseFloat(document.getElementById("baseNumber").value);
+      const percent = parseFloat(document.getElementById("percentage").value);
+      if (isNaN(base) || isNaN(percent)) {
+        document.getElementById("percentageResult").innerText = "Сандарды дұрыс енгізіңіз.";
+        return;
+      }
+      const result = (base * percent) / 100;
+      document.getElementById("percentageResult").innerText = `${percent}% = ${result.toFixed(2)}`;
+    }
+
+    // 3. Ақпарат көлемін салыстыру
+    function compareSizes() {
+      const size1 = parseFloat(document.getElementById("size1").value);
+      const unit1 = document.getElementById("unit1").value;
+      const size2 = parseFloat(document.getElementById("size2").value);
+      const unit2 = document.getElementById("unit2").value;
+
+      if (isNaN(size1) || isNaN(size2) || size2 === 0) {
+        document.getElementById("compareResult").innerText = "Мәліметтерді дұрыс енгізіңіз.";
+        return;
+      }
+
+      const convertToKB = (size, unit) => {
+        if (unit === "KB") return size;
+        if (unit === "MB") return size * 1024;
+        if (unit === "GB") return size * 1024 * 1024;
+      };
+
+      const size1KB = convertToKB(size1, unit1);
+      const size2KB = convertToKB(size2, unit2);
+
+      const ratio = size1KB / size2KB;
+
+      document.getElementById("compareResult").innerText =
+        `${size1} ${unit1} → ${size2} ${unit2}-тан ${ratio.toFixed(2)} есе үлкен`;
+    }
+  </script>
+
+
+
+</body></html>
